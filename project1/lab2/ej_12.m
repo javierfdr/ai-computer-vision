@@ -12,13 +12,13 @@ input('Reading image sillas.jpg. Press enter to continue');
 sillas = imread('images/sillas.jpg');
 
 input('Press enter to display the 3 channels separately');
-r = sillas(,,1);
-g = sillas(,,2);
-b = sillas(,,3);
+r = sillas(:,:,1);
+g = sillas(:,:,2);
+b = sillas(:,:,3);
 
-figure, imshow(r);
-figure, imshow(g);
-figure, imshow(b);
+figure('name','Red Channel'), imshow(r);
+figure('name','Green Channel'), imshow(g);
+figure('name','Blue Channel'), imshow(b);
 
 % Given the great amount of white in the image it can be seen that the three
 % channels contain many pixels with high values. Red channel contains lower-value
