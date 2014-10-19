@@ -29,7 +29,7 @@ figure('name','binarized 150'), imshow(bi_car);
 imwrite(bi_car,'images/car_binary.jpg');
 
 % c) What will happen if you multiply the original image by the binary image?
-car_mult = car_gray .* bi_car;
+car_mult = car_gray .* uint8(bi_car);
 figure('name','multiplied by binary img'), imshow(car_mult);
 
 % The binarized image multiplies by zero the values below the threshold, converting
@@ -38,7 +38,7 @@ figure('name','multiplied by binary img'), imshow(car_mult);
 
 % d) What will happen if you multiply the original image with the inverted binary image?
 bi_car = inv_thresholding(car_gray,150);
-car_mult = car_gray .* bi_car;
+car_mult = car_gray .* uint8(bi_car);
 figure('name','multiplied by invert binarized img'), imshow(car_mult);
 
 % The values brighter in the original image are removed, and the darker values remain
