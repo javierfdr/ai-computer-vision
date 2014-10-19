@@ -114,13 +114,8 @@ smooth_rgb_manual = cat(3,smooth_chr,smooth_chg,smooth_chb);
 %[[11111];[11111];[11111];[1 1 1 1 1]; [1 1 1 1 1]]? 
 %Do we need to normalize the mask (divide by the sum of all its numbers)? 
 %Apply several times in order to observe effect.
-h = [11111];
-horizontal_smooth = imfilter(corals(:,:,1),h);
-h = [1;1;1;1;1];
-vertical_smooth = imfilter(corals(:,:,1),h);
-h = [[11111];[11111];[11111]];
-square_smooth_not_averaged = imfilter(corals(:,:,1),h);
-
+h = [11111]
+horiz = imfilter(corals(:,:,1),h);
 
 
 
