@@ -1,0 +1,25 @@
+function [imres] = testKMeans(im)
+% this is the classical kmeans algorithm
+ 
+im1d=reshape(im, size(im,1)*size(im,2),3);
+
+% Add here the spatial coordinates ?.
+n = size(im,1);
+m = size(im,2);
+
+xys = (1:n*m)';
+
+
+k=8; % cluster in 4 clusters
+
+idx=kmeans(double(im1d),k);
+im1d = cluster_coloring(k,idx,im1d);
+
+%im2d=reshape(idx, size(im,1),size(im,2));
+
+%im2d=((double(im2d)-min(min(im2d)))/(max(max(im2d))-min(min(im2d)))*255.0);
+
+im3d = reshape(im1d,size(im,1),size(im,2),3);
+imres=cat(2,im,im3d);
+ 
+end
