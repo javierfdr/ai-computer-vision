@@ -7,19 +7,22 @@ im1d=reshape(im, size(im,1)*size(im,2),3);
 n = size(im,1);
 m = size(im,2);
 
-xs = zeros(n*m);
-ys = zeros(n*m);
+zerouint = uint16(0);
+
+xs(n*m,1) = zerouint;
+ys(n*m,1) = zerouint;
+
 for j=1:m
     for i=1:n
-        xs(i*j) = i;
-        ys(i*j) = j;
+        xs(i+((j-1)*n)) = i;
+        ys(i+((j-1)*n)) = j;
     end
 end
 
 % adding spatial coordinates
 im1d = [im1d,xs,ys];
 
-k=4; % cluster in 4 clusters
+k=7; % cluster in 4 clusters
 
 idx=kmeans(double(im1d),k);
 
