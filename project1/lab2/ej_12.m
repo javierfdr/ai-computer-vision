@@ -10,15 +10,18 @@
 
 input('Reading image sillas.jpg. Press enter to continue');
 sillas = imread('images/sillas.jpg');
+figure('name','sillas.jpg image');
+imshow(sillas);
 
 input('Press enter to display the 3 channels separately');
 r = sillas(:,:,1);
 g = sillas(:,:,2);
 b = sillas(:,:,3);
 
-figure('name','Red Channel'), imshow(r);
-figure('name','Green Channel'), imshow(g);
-figure('name','Blue Channel'), imshow(b);
+figure('name','Three channels of sillas.jpg')
+subplot(3,1,1),imshow(r), title('Red Channel');
+subplot(3,1,2),imshow(g), title('Green Channel');
+subplot(3,1,3),imshow(b), title('Blue Channel');
 
 % Given the great amount of white in the image it can be seen that the three
 % channels contain many pixels with high values. Red channel contains lower-value

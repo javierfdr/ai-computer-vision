@@ -11,8 +11,15 @@ c2 = [zeros(128,256); ones(128,256)];
 c3 = [ones(128),zeros(128); zeros(128,256)];
 
 input('Generating 3channels image. Press enter to continue');
+
 cm = cat(3,c1,c2,c3);
-figure, imshow(cm);
+
+figure('name','Three channels and a RGB image')
+subplot(1,4,1),imshow(c1), title('Red Channel');
+subplot(1,4,2),imshow(c2), title('Blue Channel');
+subplot(1,4,3),imshow(c3), title('Green Channel');
+subplot(1,4,4),imshow(cm), title('RGB');
+
 
 imwrite(cm,'3channels.jpg','jpg');
 
