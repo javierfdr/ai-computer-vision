@@ -1,4 +1,4 @@
-function [imres] = testMeanShift(im)
+function [imres] = testMeanShift(im, spatial)
 % this is the classical kmeans algorithm
  
 im1d=reshape(im, size(im,1)*size(im,2),3);
@@ -19,8 +19,10 @@ for j=1:m
     end
 end
 
-% adding spatial coordinates
-im1d = [im1d,xs,ys];
+if spatial == true
+    % adding spatial coordinates
+    im1d = [im1d,xs,ys];
+end
 
 tic
 [clustCent,point2cluster,clustMembsCell] = MeanShiftCluster(double(im1d'),50);
