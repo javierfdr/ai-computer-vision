@@ -6,6 +6,7 @@
 clc
 
 disp('testing mean shift with animales.jpg');
+animales = imread('docs/images/animales.jpg');
 manim = testMeanShift(animales, false);
 imshow(manim);
 input('press enter to continue...');
