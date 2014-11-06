@@ -20,7 +20,7 @@ for j=1:m
 end
 
 % adding spatial coordinates
-%im1d = [im1d,xs,ys];
+im1d = [im1d,xs,ys];
 
 tic
 [clustCent,point2cluster,clustMembsCell] = MeanShiftCluster(double(im1d'),50);
