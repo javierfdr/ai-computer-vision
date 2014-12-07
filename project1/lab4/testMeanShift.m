@@ -3,7 +3,7 @@ function [imres] = testMeanShift(im)
  
 im1d=reshape(im, size(im,1)*size(im,2),3);
 
-% Add here the spatial coordinates ?.
+% Add here the spatial coordinates
 n = size(im,1);
 m = size(im,2);
 
