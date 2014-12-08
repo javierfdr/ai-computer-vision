@@ -1,4 +1,4 @@
-function [area] = getRectangleArea(S, y,x, dx,dy,h,w)
+function [area] = getRectangleArea(S, y,x, dy,dx,h,w)
     
     x1 = S(y+dy+1,x+dx+1);
     x2 = S(y+dy+1,x+dx+w);

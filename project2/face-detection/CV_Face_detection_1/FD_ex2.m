@@ -116,27 +116,19 @@ for i = 1:size(XY_FACE,1)
     % current top-left corner coordinates
     x = XY_FACE(i,1);
     y = XY_FACE(i,2);
-    
+
     % compute area of regions A and B for the first feature
     % HERE WE USE INTEGRAL IMAGE!
-    %area_A = S(y+d1+h1,x+d2+w1) - S(y+d1+1,x+d2+w1) - (S(y+d1+h1,x+d2+1) - S(y+d1+1,x+d2+1));
-    %area_B = S(y+2*h1+d1,x+w1+d2) - S(y+d1+h1+1,x+d2+w1) - (S(y+d1+2*h1,x+d2+1)-S(y+d1+h1+1,x+d2+1));
-    
     area_A = getRectangleArea(S,y,x,d1,d2,h1,w1);
     area_B = getRectangleArea(S,y+h1,x,d1,d2,h1,w1);
     
     % compute area of regions C, D and E for the second feature
     % HERE WE USE INTEGRAL IMAGE!
-    
-    %area_C = S(y+d3+h2,x+d4+w2) - S(y+d3+1,x+d4+w2) - (S(y+d3+h2,x+d4+1) - S(y+d3+1,x+d4+1));
-    %area_D = S(y+d3+h2,x+d4+w2+w3) - S(y+d3+1,x+d4+w2+w3) - (S(y+d3+h2,x+d4+w2+1) - S(y+d3+1,x+d4+w2+1));
-    %area_E = S(y+d3+h2,x+d4+2*w2+w3) - S(y+d3+1,x+d4+2*w2+w3) - (S(y+d3+h2,x+d4+w2+w3+1) - S(y+d3+1,x+d4+w2+w3+1));
-            
-    
+
     area_C = getRectangleArea(S,y,x,d3,d4,h2,w2);
     area_D = getRectangleArea(S,y,x+w2,d3,d4,h2,w3);
     area_E = getRectangleArea(S,y,x+w2+w3,d3,d4,h2,w2);
-     
+    
     % compute area of regions F, G and H for the third feature
     area_F = getRectangleArea(S,y,x,d5,d5,h3,w4);
     area_G = getRectangleArea(S,y+h3,x,d5,d5,h4,w4);
@@ -157,7 +149,6 @@ for i = 1:size(XY_FACE,1)
     area_P = getRectangleArea(S,y,x,d9,d9,h8,w7);
     area_Q = getRectangleArea(S,y,x+w7,d9,d9,h8,w7); 
         
-    
     % compute features value
     F1 = area_B - area_A;
     F2 = area_D - (area_C + area_E);
@@ -190,24 +181,15 @@ for i = 1:size(XY_NON_FACE,1)
     
     % compute area of regions A and B for the first feature
     % HERE WE USE INTEGRAL IMAGE!
-    %area_A = getRectangleArea(S,y,x,d1,d2,h1,w1);
-    %area_B = getRectangleArea(S,y+h1,x,d1,d2,h1,w1);
-    
-    area_A = S(y+d1+h1,x+d2+w1) - S(y+d1+1,x+d2+w1) - (S(y+d1+h1,x+d2+1) - S(y+d1+1,x+d2+1));
-    area_B = S(y+2*h1+d1,x+w1+d2) - S(y+d1+h1+1,x+d2+w1) - (S(y+d1+2*h1,x+d2+1)-S(y+d1+h1+1,x+d2+1));
-    
-    disp('----------');
-    
+    area_A = getRectangleArea(S,y,x,d1,d2,h1,w1);
+    area_B = getRectangleArea(S,y+h1,x,d1,d2,h1,w1);
+
     % compute area of regions C, D and E for the second feature
     % HERE WE USE INTEGRAL IMAGE!
     
-    %area_C = getRectangleArea(S,y,x,d3,d4,h2,w2);
-    %area_D = getRectangleArea(S,y,x+w2,d3,d4,h2,w3);
-    %area_E = getRectangleArea(S,y,x+w2+w3,d3,d4,h2,w2);
-     
-    area_C = S(y+d3+h2,x+d4+w2) - S(y+d3+1,x+d4+w2) - (S(y+d3+h2,x+d4+1) - S(y+d3+1,x+d4+1));
-    area_D = S(y+d3+h2,x+d4+w2+w3) - S(y+d3+1,x+d4+w2+w3) - (S(y+d3+h2,x+d4+w2+1) - S(y+d3+1,x+d4+w2+1));
-    area_E = S(y+d3+h2,x+d4+2*w2+w3) - S(y+d3+1,x+d4+2*w2+w3) - (S(y+d3+h2,x+d4+w2+w3+1) - S(y+d3+1,x+d4+w2+w3+1));
+    area_C = getRectangleArea(S,y,x,d3,d4,h2,w2);
+    area_D = getRectangleArea(S,y,x+w2,d3,d4,h2,w3);
+    area_E = getRectangleArea(S,y,x+w2+w3,d3,d4,h2,w2);
 
     % compute area of regions F, G and H for the third feature
     area_F = getRectangleArea(S,y,x,d5,d5,h3,w4);
@@ -245,39 +227,43 @@ end
 disp('Non-face features');
 disp(FEAT_NON_FACE);
 
-% %% Visualize samples in the feature space
-% input('Press enter to visualize face and non-face features in the feature space');
-% figure('name','Face and non-face feature space for the different samples')
-% hold on
-% scatter(FEAT_FACE(:,1),FEAT_FACE(:,2),'g');
-% scatter(FEAT_NON_FACE(:,1),FEAT_NON_FACE(:,2),'r');
-% xlabel('Feature 1');
-% ylabel('Feature 2');
-% title('Feature space');
+% %% Visualize samples in the feature space by using two-first principal components;
+input('Press enter to visualize face and non-face features principal components');
 
-%
-% %% Visualize image with used regions
-% input('Press enter to visualize face and non-face features over the image');
-% figure('name','Face and non-face for the different samples over the image')
-% imshow(I);
-%
-% % patches with faces
-% for i = 1:size(XY_FACE,1)
-%     PATCH = [XY_FACE(i,:) L L];
-%     Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
-%     hold on;
-%     plot (Rectangle(:,1), Rectangle(:,2), 'g');
-%     hold off;
-% end
-%
-% % patches without faces
-% for i = 1:size(XY_NON_FACE,1)
-%     PATCH = [XY_NON_FACE(i,:) L L];
-%     Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
-%     hold on;
-%     plot (Rectangle(:,1), Rectangle(:,2), 'r');
-%     hold off;
-% end
+pca_feat_face = FEAT_FACE*pca(FEAT_FACE);
+pca_feat_non_face = FEAT_NON_FACE*pca(FEAT_NON_FACE);
+
+figure('name','Face and non-face PCA-feature space for the different samples')
+hold on
+scatter(pca_feat_face(:,1),pca_feat_face(:,2),'g');
+scatter(pca_feat_non_face(:,1),pca_feat_non_face(:,2),'r');
+xlabel('Feature 1 PCA');
+ylabel('Feature 2 PCA');
+title('Feature space');
+
+
+%% Visualize image with used regions
+input('Press enter to visualize face and non-face features over the image');
+figure('name','Face and non-face for the different samples over the image')
+imshow(I);
+
+% patches with faces
+for i = 1:size(XY_FACE,1)
+    PATCH = [XY_FACE(i,:) L L];
+    Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
+    hold on;
+    plot (Rectangle(:,1), Rectangle(:,2), 'g');
+    hold off;
+end
+
+% patches without faces
+for i = 1:size(XY_NON_FACE,1)
+    PATCH = [XY_NON_FACE(i,:) L L];
+    Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
+    hold on;
+    plot (Rectangle(:,1), Rectangle(:,2), 'r');
+    hold off;
+end
 
 
 %% Part 2:
@@ -290,9 +276,21 @@ I = imread('madrid.jpg');
 x1 = [201;389;695;1015;1190;1218;1032;807;603;431;207;63;59;519;857;1007;1274;1492;1446;371;49;859;]
 y1 = [171;231;231;313;209;71;67;83;105;91;63;31;479;716;514;447;493;227;610;894;850;403;]
 
+maskInfo = [L,d1,d2,d3,d4,d5,d6,d7,d8,d9,w1,w2,w3,w4,w5,w6,w7,h1,h2,h3,h4,h5,h6,h7,h8];
+trainAndClassifyMultiFeatures(FEAT_FACE,FEAT_NON_FACE,I,x1,y1,maskInfo);
 
-maskInfo = [L,d1,d2,d3,d4,w1,w2,w3,h1,h2];
-trainAndClassify(FEAT_FACE,FEAT_NON_FACE,I,x1,y1,maskInfo);
+%% Part 2:
+% Testing madrid.jpg as test image, with very marked negative windows
+
+input('Press enter to test madrid image on classifier');
+I = imread('madrid.jpg');
+
+% Madrid manually obtained mask points
+x1 =[199;387;693;1013;1188;1218;1030;803;601;431;201;1476;1484;1480;1488;1486;1460;15;23;21;9;149;387;]
+y1 =[167;211;221;301;205;71;65;91;97;89;65;846;674;469;361;197;45;19;99;195;267;920;918;]
+
+maskInfo = [L,d1,d2,d3,d4,d5,d6,d7,d8,d9,w1,w2,w3,w4,w5,w6,w7,h1,h2,h3,h4,h5,h6,h7,h8];
+trainAndClassifyMultiFeatures(FEAT_FACE,FEAT_NON_FACE,I,x1,y1,maskInfo);
 
 
 end

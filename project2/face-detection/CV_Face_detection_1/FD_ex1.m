@@ -138,38 +138,38 @@ disp('Non-face features');
 disp(FEAT_NON_FACE);
 
 % %% Visualize samples in the feature space
-% input('Press enter to visualize face and non-face features in the feature space');
-% figure('name','Face and non-face feature space for the different samples')
-% hold on
-% scatter(FEAT_FACE(:,1),FEAT_FACE(:,2),'g');
-% scatter(FEAT_NON_FACE(:,1),FEAT_NON_FACE(:,2),'r');
-% xlabel('Feature 1');
-% ylabel('Feature 2');
-% title('Feature space');
+input('Press enter to visualize face and non-face features in the feature space');
+figure('name','Face and non-face feature space for the different samples')
+hold on
+scatter(FEAT_FACE(:,1),FEAT_FACE(:,2),'g');
+scatter(FEAT_NON_FACE(:,1),FEAT_NON_FACE(:,2),'r');
+xlabel('Feature 1');
+ylabel('Feature 2');
+title('Feature space');
 
-%
-% %% Visualize image with used regions
-% input('Press enter to visualize face and non-face features over the image');
-% figure('name','Face and non-face for the different samples over the image')
-% imshow(I);
-%
-% % patches with faces
-% for i = 1:size(XY_FACE,1)
-%     PATCH = [XY_FACE(i,:) L L];
-%     Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
-%     hold on;
-%     plot (Rectangle(:,1), Rectangle(:,2), 'g');
-%     hold off;
-% end
-%
-% % patches without faces
-% for i = 1:size(XY_NON_FACE,1)
-%     PATCH = [XY_NON_FACE(i,:) L L];
-%     Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
-%     hold on;
-%     plot (Rectangle(:,1), Rectangle(:,2), 'r');
-%     hold off;
-% end
+
+%% Visualize image with used regions
+input('Press enter to visualize face and non-face features over the image');
+figure('name','Face and non-face for the different samples over the image')
+imshow(I);
+
+% patches with faces
+for i = 1:size(XY_FACE,1)
+    PATCH = [XY_FACE(i,:) L L];
+    Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
+    hold on;
+    plot (Rectangle(:,1), Rectangle(:,2), 'g');
+    hold off;
+end
+
+% patches without faces
+for i = 1:size(XY_NON_FACE,1)
+    PATCH = [XY_NON_FACE(i,:) L L];
+    Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
+    hold on;
+    plot (Rectangle(:,1), Rectangle(:,2), 'r');
+    hold off;
+end
 
 
 %% Part 2:
@@ -181,7 +181,6 @@ I = imread('madrid.jpg');
 % Madrid manually obtained mask points
 x1 = [201;389;695;1015;1190;1218;1032;807;603;431;207;63;59;519;857;1007;1274;1492;1446;371;49;859;]
 y1 = [171;231;231;313;209;71;67;83;105;91;63;31;479;716;514;447;493;227;610;894;850;403;]
-
 
 maskInfo = [L,d1,d2,d3,d4,w1,w2,w3,h1,h2];
 trainAndClassify(FEAT_FACE,FEAT_NON_FACE,I,x1,y1,maskInfo);

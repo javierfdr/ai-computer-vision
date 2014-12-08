@@ -116,59 +116,49 @@ for i = 1:size(XY_FACE,1)
     % current top-left corner coordinates
     x = XY_FACE(i,1);
     y = XY_FACE(i,2);
-    
+
     % compute area of regions A and B for the first feature
     % HERE WE USE INTEGRAL IMAGE!
-    %area_A = S(y+d1+h1,x+d2+w1) - S(y+d1+1,x+d2+w1) - (S(y+d1+h1,x+d2+1) - S(y+d1+1,x+d2+1));
-    %area_B = S(y+2*h1+d1,x+w1+d2) - S(y+d1+h1+1,x+d2+w1) - (S(y+d1+2*h1,x+d2+1)-S(y+d1+h1+1,x+d2+1));
-    
     area_A = getRectangleArea(S,y,x,d1,d2,h1,w1);
     area_B = getRectangleArea(S,y+h1,x,d1,d2,h1,w1);
     
     % compute area of regions C, D and E for the second feature
     % HERE WE USE INTEGRAL IMAGE!
-    
-    %area_C = S(y+d3+h2,x+d4+w2) - S(y+d3+1,x+d4+w2) - (S(y+d3+h2,x+d4+1) - S(y+d3+1,x+d4+1));
-    %area_D = S(y+d3+h2,x+d4+w2+w3) - S(y+d3+1,x+d4+w2+w3) - (S(y+d3+h2,x+d4+w2+1) - S(y+d3+1,x+d4+w2+1));
-    %area_E = S(y+d3+h2,x+d4+2*w2+w3) - S(y+d3+1,x+d4+2*w2+w3) - (S(y+d3+h2,x+d4+w2+w3+1) - S(y+d3+1,x+d4+w2+w3+1));
-            
-    
+
     area_C = getRectangleArea(S,y,x,d3,d4,h2,w2);
     area_D = getRectangleArea(S,y,x+w2,d3,d4,h2,w3);
     area_E = getRectangleArea(S,y,x+w2+w3,d3,d4,h2,w2);
     
+    % compute area of regions F, G and H for the third feature
+    area_F = getRectangleArea(S,y,x,d5,d5,h3,w4);
+    area_G = getRectangleArea(S,y+h3,x,d5,d5,h4,w4);
+    area_H = getRectangleArea(S,y+h3+h4,x,d5,d5,h3,w4);
     
-%     % compute area of regions F, G and H for the third feature
-%     area_F = getRectangleArea(S,x,y,d5,d5,h3,w4);
-%     area_G = getRectangleArea(S,x+h3,y,d5,d5,h4,w4);
-%     area_H = getRectangleArea(S,x+h3+h4,y,d5,d5,h3,w4);
-%     
-%     % compute area of regions H, J, K, L for the fourth feature
-%     area_I = getRectangleArea(S,x,y,d6,d6,h5,w5);
-%     area_J = getRectangleArea(S,x,y+w5,d6,d6,h5,w5);
-%     area_K = getRectangleArea(S,x+h5,y,d6,d6,h5,w5);
-%     area_L = getRectangleArea(S,x+h5,y+w5,d6,d6,h5,w5);
-%    
-%     % compute area of regions M, N, O for the fifth feature
-%     area_M = getRectangleArea(S,x,y,d7,d8,h6,w6);
-%     area_N = getRectangleArea(S,x+h6,y,d7,d8,h7,w6);
-%     area_O = getRectangleArea(S,x+h6+h7,y,d7,d8,h6,w6);  
-%     
-%     % compute area of regions P, Q for the sixth feature
-%     area_P = getRectangleArea(S,x,y,d9,d9,h8,w7);
-%     area_Q = getRectangleArea(S,x,y+w7,d9,d9,h8,w7); 
+    % compute area of regions H, J, K, L for the fourth feature
+    area_I = getRectangleArea(S,y,x,d6,d6,h5,w5);
+    area_J = getRectangleArea(S,y,x+w5,d6,d6,h5,w5);
+    area_K = getRectangleArea(S,y+h5,x,d6,d6,h5,w5);
+    area_L = getRectangleArea(S,y+h5,x+w5,d6,d6,h5,w5);
+   
+    % compute area of regions M, N, O for the fifth feature
+    area_M = getRectangleArea(S,y,x,d7,d8,h6,w6);
+    area_N = getRectangleArea(S,y+h6,x,d7,d8,h7,w6);
+    area_O = getRectangleArea(S,y+h6+h7,x,d7,d8,h6,w6);  
+    
+    % compute area of regions P, Q for the sixth feature
+    area_P = getRectangleArea(S,y,x,d9,d9,h8,w7);
+    area_Q = getRectangleArea(S,y,x+w7,d9,d9,h8,w7); 
         
-    
     % compute features value
     F1 = area_B - area_A;
     F2 = area_D - (area_C + area_E);
-%     F3 = area_G - (area_F + area_H);
-%     F4 = (area_J + area_K) - (area_I + area_L); 
-%     F5 = area_N - (area_M + area_O);
-%     F6 = area_Q - area_P;
+    F3 = area_G - (area_F + area_H);
+    F4 = (area_J + area_K) - (area_I + area_L); 
+    F5 = area_N - (area_M + area_O);
+    F6 = area_Q - area_P;
     
     % cumulate the computed values
-    FEAT_FACE = [FEAT_FACE; [F1 F2]];
+    FEAT_FACE = [FEAT_FACE; [F1 F2 F3 F4 F5 F6]];
 end
 
 disp('Feature face vector');
@@ -193,75 +183,87 @@ for i = 1:size(XY_NON_FACE,1)
     % HERE WE USE INTEGRAL IMAGE!
     area_A = getRectangleArea(S,y,x,d1,d2,h1,w1);
     area_B = getRectangleArea(S,y+h1,x,d1,d2,h1,w1);
-    
-    %area_A = S(y+d1+h1,x+d2+w1) - S(y+d1+1,x+d2+w1) - (S(y+d1+h1,x+d2+1) - S(y+d1+1,x+d2+1))
-    %area_B = S(y+2*h1+d1,x+w1+d2) - S(y+d1+h1+1,x+d2+w1) - (S(y+d1+2*h1,x+d2+1)-S(y+d1+h1+1,x+d2+1))
-    
-    disp('----------');
-    
+
     % compute area of regions C, D and E for the second feature
     % HERE WE USE INTEGRAL IMAGE!
     
-    area_C = getRectangleArea(S,y,x,d3,d4,h2,w2)
-    area_D = getRectangleArea(S,y,x+w2,d3,d4,h2,w3)
-    area_E = getRectangleArea(S,y,x+w2+w3,d3,d4,h2,w2)
-    
-    x44=S(y+d3+h2,x+d4+w2)
-    x22=S(y+d3+1,x+d4+w2)
-    x33=
-    x11=
-    
-    area_C = S(y+d3+h2,x+d4+w2) - S(y+d3+1,x+d4+w2) - (S(y+d3+h2,x+d4+1) - S(y+d3+1,x+d4+1))
-    area_D = S(y+d3+h2,x+d4+w2+w3) - S(y+d3+1,x+d4+w2+w3) - (S(y+d3+h2,x+d4+w2+1) - S(y+d3+1,x+d4+w2+1))
-    area_E = S(y+d3+h2,x+d4+2*w2+w3) - S(y+d3+1,x+d4+2*w2+w3) - (S(y+d3+h2,x+d4+w2+w3+1) - S(y+d3+1,x+d4+w2+w3+1))
-            
+    area_C = getRectangleArea(S,y,x,d3,d4,h2,w2);
+    area_D = getRectangleArea(S,y,x+w2,d3,d4,h2,w3);
+    area_E = getRectangleArea(S,y,x+w2+w3,d3,d4,h2,w2);
 
-       
+    % compute area of regions F, G and H for the third feature
+    area_F = getRectangleArea(S,y,x,d5,d5,h3,w4);
+    area_G = getRectangleArea(S,y+h3,x,d5,d5,h4,w4);
+    area_H = getRectangleArea(S,y+h3+h4,x,d5,d5,h3,w4);
+    
+    % compute area of regions H, J, K, L for the fourth feature
+    area_I = getRectangleArea(S,y,x,d6,d6,h5,w5);
+    area_J = getRectangleArea(S,y,x+w5,d6,d6,h5,w5);
+    area_K = getRectangleArea(S,y+h5,x,d6,d6,h5,w5);
+    area_L = getRectangleArea(S,y+h5,x+w5,d6,d6,h5,w5);
+   
+    % compute area of regions M, N, O for the fifth feature
+    area_M = getRectangleArea(S,y,x,d7,d8,h6,w6);
+    area_N = getRectangleArea(S,y+h6,x,d7,d8,h7,w6);
+    area_O = getRectangleArea(S,y+h6+h7,x,d7,d8,h6,w6);  
+    
+    % compute area of regions P, Q for the sixth feature
+    area_P = getRectangleArea(S,y,x,d9,d9,h8,w7);
+    area_Q = getRectangleArea(S,y,x+w7,d9,d9,h8,w7); 
+            
     
     % compute features value
     F1 = area_B - area_A;
     F2 = area_D - (area_C + area_E);
+    F3 = area_G - (area_F + area_H);
+    F4 = (area_J + area_K) - (area_I + area_L); 
+    F5 = area_N - (area_M + area_O);
+    F6 = area_Q - area_P;
 
     
     % cumulate the computed values
-    FEAT_NON_FACE = [FEAT_NON_FACE; [F1 F2]];
+    FEAT_NON_FACE = [FEAT_NON_FACE; [F1 F2 F3 F4 F5 F6]];
 end
 disp('Non-face features');
 disp(FEAT_NON_FACE);
 
-% %% Visualize samples in the feature space
-% input('Press enter to visualize face and non-face features in the feature space');
-% figure('name','Face and non-face feature space for the different samples')
-% hold on
-% scatter(FEAT_FACE(:,1),FEAT_FACE(:,2),'g');
-% scatter(FEAT_NON_FACE(:,1),FEAT_NON_FACE(:,2),'r');
-% xlabel('Feature 1');
-% ylabel('Feature 2');
-% title('Feature space');
+% %% Visualize samples in the feature space by using two-first principal components;
+input('Press enter to visualize face and non-face features principal components');
 
-%
-% %% Visualize image with used regions
-% input('Press enter to visualize face and non-face features over the image');
-% figure('name','Face and non-face for the different samples over the image')
-% imshow(I);
-%
-% % patches with faces
-% for i = 1:size(XY_FACE,1)
-%     PATCH = [XY_FACE(i,:) L L];
-%     Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
-%     hold on;
-%     plot (Rectangle(:,1), Rectangle(:,2), 'g');
-%     hold off;
-% end
-%
-% % patches without faces
-% for i = 1:size(XY_NON_FACE,1)
-%     PATCH = [XY_NON_FACE(i,:) L L];
-%     Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
-%     hold on;
-%     plot (Rectangle(:,1), Rectangle(:,2), 'r');
-%     hold off;
-% end
+coeff_face = pca(FEAT_FACE);
+
+
+figure('name','Face and non-face PCA-feature space for the different samples')
+hold on
+scatter(FEAT_FACE(:,1),FEAT_FACE(:,2),'g');
+scatter(FEAT_NON_FACE(:,1),FEAT_NON_FACE(:,2),'r');
+xlabel('Feature 1');
+ylabel('Feature 2');
+title('Feature space');
+
+
+%% Visualize image with used regions
+input('Press enter to visualize face and non-face features over the image');
+figure('name','Face and non-face for the different samples over the image')
+imshow(I);
+
+% patches with faces
+for i = 1:size(XY_FACE,1)
+    PATCH = [XY_FACE(i,:) L L];
+    Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
+    hold on;
+    plot (Rectangle(:,1), Rectangle(:,2), 'g');
+    hold off;
+end
+
+% patches without faces
+for i = 1:size(XY_NON_FACE,1)
+    PATCH = [XY_NON_FACE(i,:) L L];
+    Rectangle = [PATCH(1) PATCH(2); PATCH(1)+PATCH(3) PATCH(2); PATCH(1)+PATCH(3) PATCH(2)+PATCH(4); PATCH(1)  PATCH(2)+PATCH(4); PATCH(1) PATCH(2)];
+    hold on;
+    plot (Rectangle(:,1), Rectangle(:,2), 'r');
+    hold off;
+end
 
 
 %% Part 2:
@@ -274,9 +276,7 @@ I = imread('madrid.jpg');
 x1 = [201;389;695;1015;1190;1218;1032;807;603;431;207;63;59;519;857;1007;1274;1492;1446;371;49;859;]
 y1 = [171;231;231;313;209;71;67;83;105;91;63;31;479;716;514;447;493;227;610;894;850;403;]
 
-
-maskInfo = [L,d1,d2,d3,d4,w1,w2,w3,h1,h2];
-trainAndClassify(FEAT_FACE,FEAT_NON_FACE,I,x1,y1,maskInfo);
-
+maskInfo = [L,d1,d2,d3,d4,d5,d6,d7,d8,d9,w1,w2,w3,w4,w5,w6,w7,h1,h2,h3,h4,h5,h6,h7,h8];
+trainAndClassifyMultiFeatures(FEAT_FACE,FEAT_NON_FACE,I,x1,y1,maskInfo);
 
 end

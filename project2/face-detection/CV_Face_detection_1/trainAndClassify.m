@@ -54,6 +54,8 @@ function [] = trainAndClassify(FEAT_FACE,FEAT_NON_FACE, I, x1, y1, maskInfo)
         FEAT_TEST = [FEAT_TEST; [F1 F2]];
 
     end
+    
+    
 
     %% Train a k-nn classifier and test the new windows
     input('Press enter to train a classifier on barcelona.jpg windows');
